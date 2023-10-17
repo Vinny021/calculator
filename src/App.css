@@ -1,5 +1,14 @@
 .App {
   text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.Display {
+  background-color: #282c34;
+  color: azure;
+  margin-top: 10%;
+  border-radius: 10px;
 }
 
 .App-logo {
