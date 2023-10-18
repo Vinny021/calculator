@@ -12,7 +12,12 @@ function App() {
 
   return (
     <div className="App">
-      <input id="display" className="Display" type="number" onChange={updateCurrentNumber} value={currentNumber}/>
+      <div className='CalculatorBase'>
+        <input id="display" className="Display" type="number" onChange={updateCurrentNumber} value={currentNumber}/>
+        <div className='KeyboardSection'>
+          
+        </div>
+      </div>
     </div>
   );
 }

@@ -5,10 +5,32 @@
 }
 
 .Display {
-  background-color: #282c34;
+  background-color: #454a54;
   color: azure;
   margin-top: 10%;
-  border-radius: 10px;
+  border-radius: 24px;
+  height: 3rem;
+  width: 16rem;
+}
+
+.CalculatorBase{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2.5rem;
+  border-radius: 24px;
+  height: 30rem;
+  width: 18rem;
+  background-color: #282c34;
+}
+
+.KeyboardSection{
+  flex: 1;
+  margin-top: 10%;
+  border-bottom-right-radius: 24px;
+  border-bottom-left-radius: 24px;
+  width: 100%;
+  background-color: rgba(240, 248, 255, 0.346);
 }
 
 .App-logo {
