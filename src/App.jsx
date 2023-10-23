@@ -8,11 +8,6 @@ function App() {
   const [expectNewValue, setExpectNewValue] = useState(false);
 
 
-  const updateCurrentNumber = (event) => {
-    const newNumber = event.target.value.length === 0 ? 0 : event.target.value;
-    setCurrentNumber(parseInt(newNumber));
-  }
-
   const numberInput = (event) => {
     const currentNumberString = currentNumber.toString();
     const inputedNumber = event.target.innerText;
@@ -67,7 +62,7 @@ function App() {
   return (
     <div className="App">
       <div className='CalculatorBase'>
-        <input id="display" className="Display" onChange={updateCurrentNumber} value={currentNumber}/>
+        <input id="display" className="Display" value={currentNumber}/>
         <div className='KeyboardSection'>
           <div className='ButtonsRow'>
             <div className='Button' style={{backgroundColor:'#454a5400'}}></div>
