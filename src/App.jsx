@@ -59,6 +59,15 @@ function App() {
     }
   }
 
+  const clearPrevious = () => {
+    if(expectNewValue){
+      setCurrentNumber(previousNumber.toString());
+      setOperation('');
+    }else{
+      setCurrentNumber('0');
+    }
+  }
+
   return (
     <div className="App">
       <div className='CalculatorBase'>
@@ -67,7 +76,7 @@ function App() {
           <div className='ButtonsRow'>
             <div className='Button' style={{backgroundColor:'#454a5400'}}></div>
             <div className='Button' style={{backgroundColor:'#454a5400'}}></div>
-            <div className='Button' style={{backgroundColor:'#454a5400'}}></div>
+            <button onClick={clearPrevious} className='Button'>C</button>
             <button className='Button'>AC</button>
           </div>
           <div className='ButtonsRow'>
