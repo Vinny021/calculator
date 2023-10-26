@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import './App.css';
+import AlertComponent from './components/AlertComponent';
 
 function App() {
   const [currentNumber, setCurrentNumber] = useState('');
   const [previousNumber, setPreviousNumber] = useState(0);
   const [operation, setOperation] = useState('');
   const [expectNewValue, setExpectNewValue] = useState(false);
+  const [showAlert, setShowAlert] = useState([false, 'Error']);
 
 
   const numberInput = (event) => {
@@ -15,9 +17,12 @@ function App() {
     if(currentNumberString.length < 8 && !expectNewValue){
       const newNumber = parseInt(currentNumberString + inputedNumber);
       setCurrentNumber(newNumber.toString());
-    }else{
+    }else if(expectNewValue){
       setCurrentNumber(inputedNumber)
       setExpectNewValue(false)
+    }else{
+      setShowAlert([true, 'Limite de 8 digitos']);
+      setTimeout(() => setShowAlert(false), 1500);
     }
   }
 
@@ -42,8 +47,15 @@ function App() {
         default:
           break;
       }
-      setCurrentNumber(result.toString());
-      setPreviousNumber(result);
+      const resultString = result.toString();
+      if(resultString.length > 8){
+        setShowAlert([true, 'Limite de 8 digitos']);
+        setTimeout(() => setShowAlert(false), 1500);
+        return;
+      }else{
+        setCurrentNumber(resultString);
+        setPreviousNumber(result);
+      }
     }
 
     setExpectNewValue(true);
@@ -75,8 +87,11 @@ function App() {
     setOperation('');
   }
 
+  var alertDiv = showAlert[0] ? <AlertComponent errorMessage={showAlert[1]}/> : null
+
   return (
     <div className="App">
+      {alertDiv}
       <div className='CalculatorBase'>
         <input id="display" className="Display" value={currentNumber}/>
         <div className='KeyboardSection'>
