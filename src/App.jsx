@@ -87,6 +87,13 @@ function App() {
     setOperation('');
   }
 
+  const invertSignal = () => {
+    if(!expectNewValue || operation === ''){
+      var invertedCurrentNumber = parseInt(currentNumber) * -1;
+      setCurrentNumber(invertedCurrentNumber);
+    }
+  }
+
   var alertDiv = showAlert[0] ? <AlertComponent errorMessage={showAlert[1]}/> : null
 
   return (
@@ -97,7 +104,7 @@ function App() {
         <div className='KeyboardSection'>
           <div className='ButtonsRow'>
             <div className='Button' style={{backgroundColor:'#454a5400'}}></div>
-            <div className='Button' style={{backgroundColor:'#454a5400'}}></div>
+            <button onClick={invertSignal} className='Button'>+/-</button>
             <button onClick={clearPrevious} className='Button'>C</button>
             <button onClick={clearAll} className='Button'>AC</button>
           </div>
