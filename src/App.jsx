@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import AlertComponent from './components/AlertComponent';
+import countDecimalPlaces  from './utils/mathFunction';
 
 function App() {
   const [currentNumber, setCurrentNumber] = useState('');
@@ -15,7 +16,7 @@ function App() {
     const inputedNumber = event.target.innerText;
 
     if(currentNumberString.length < 8 && !expectNewValue){
-      const newNumber = parseInt(currentNumberString + inputedNumber);
+      const newNumber = parseFloat(currentNumberString + inputedNumber);
       setCurrentNumber(newNumber.toString());
     }else if(expectNewValue){
       setCurrentNumber(inputedNumber)
@@ -33,20 +34,25 @@ function App() {
     if(operation !== ''){
       switch (operation) {
         case '+':
-            result = previousNumber + parseInt(currentNumber);
+            result = previousNumber + parseFloat(currentNumber);
           break;
         case '-':
-            result = previousNumber - parseInt(currentNumber);
+            result = previousNumber - parseFloat(currentNumber);
           break;
         case 'X':
-            result = previousNumber * parseInt(currentNumber);
+            result = previousNumber * parseFloat(currentNumber);
           break;
         case '÷':
-            result = previousNumber / parseInt(currentNumber);
+            result = previousNumber / parseFloat(currentNumber);
           break;
         default:
           break;
       }
+
+      if(countDecimalPlaces(result) > 3){
+        result = result.toFixed(3);
+      }
+
       const resultString = result.toString();
       if(resultString.length > 8){
         setShowAlert([true, 'Limite de 8 digitos']);
@@ -62,7 +68,7 @@ function App() {
 
     if(inputedOperation !== '='){
       if(result === null){
-        setPreviousNumber(parseInt(currentNumber));
+        setPreviousNumber(parseFloat(currentNumber));
         setCurrentNumber(inputedOperation);
       }
       setOperation(inputedOperation);
@@ -89,8 +95,15 @@ function App() {
 
   const invertSignal = () => {
     if(!expectNewValue || operation === ''){
-      var invertedCurrentNumber = parseInt(currentNumber) * -1;
+      var invertedCurrentNumber = parseFloat(currentNumber) * -1;
       setCurrentNumber(invertedCurrentNumber);
+    }
+  }
+
+  const addFloatPoint = () => {
+    if(!expectNewValue){
+      const newCurrentNumberString = currentNumber.toString() + '.';
+      setCurrentNumber(newCurrentNumberString);
     }
   }
 
@@ -128,7 +141,7 @@ function App() {
           </div>
           <div className='ButtonsRow'>
             <button onClick={numberInput} className='Button'>0</button>
-            <button className='Button'>.</button>
+            <button onClick={addFloatPoint} className='Button'>.</button>
             <button onClick={operationInput} className='Button'>=</button>
             <button onClick={operationInput} className='Button'>+</button>
           </div>
